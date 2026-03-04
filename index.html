@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dencworth LLC — AI for Manufacturing Operations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0C0F12;
+            --surface: #151920;
+            --surface-raised: #1C2129;
+            --border: #2A3140;
+            --text: #E2E6EC;
+            --text-secondary: #8A93A3;
+            --accent: #D4A03C;
+            --accent-dim: rgba(212, 160, 60, 0.12);
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(12, 15, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.4s;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.6s;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 5rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--border);
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        /* --- PRODUCT CARDS --- */
+        .products {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent);
+        }
+
+        .product-card .card-label {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .product-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .product-card .detail-list {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .detail-list span {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            padding: 0.3rem 0.7rem;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 3px;
+            letter-spacing: 0.03em;
+        }
+
+        /* --- BACKGROUND --- */
+        .background-section p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat .number {
+            font-family: var(--mono);
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* --- CONTACT --- */
+        .contact-section {
+            text-align: center;
+            padding: 5rem 2rem 6rem;
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 1.1rem;
+            color: var(--bg);
+            background: var(--accent);
+            padding: 0.9rem 2.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: opacity 0.2s;
+        }
+
+        .contact-email:hover {
+            opacity: 0.88;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 640px) {
+            nav {
+                padding: 1rem 1.25rem;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 7rem 1.25rem 3rem;
+            }
+
+            section {
+                padding: 3.5rem 1.25rem;
+            }
+
+            .product-card {
+                padding: 1.75rem;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Dencworth</div>
+        <ul class="nav-links">
+            <li><a href="#products">Products</a></li>
+            <li><a href="#background">Background</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-label">Dencworth LLC</div>
+        <h1>AI built for the <em>manufacturing floor</em></h1>
+        <p>We build AI systems for the people who actually run production. Computer vision for inventory. Automated compliance for quality systems. Built by someone who's managed the line, not just written code about it.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <section id="products">
+        <div class="section-label">Products</div>
+        <h2 class="section-title">What we're building</h2>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="card-label">Launching</div>
+                <h3>Inventory Vision System</h3>
+                <p>Photograph any AkroBin on the shop floor and the system identifies the part and returns a count. Designed to integrate into broader inventory management workflows — eliminating manual counting and giving you real-time visibility into parts availability.</p>
+                <div class="detail-list">
+                    <span>Computer Vision</span>
+                    <span>Parts Identification</span>
+                    <span>Real-Time Counts</span>
+                    <span>Shop Floor Ready</span>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-label">In Development</div>
+                <h3>Compliance Management System</h3>
+                <p>AI that reads your policies, procedures, and regulations — determines who is responsible for what and when — then verifies compliance by reading your operational records. Built for ISO 9000 and manufacturing quality systems where the documentation burden is real and audits are constant.</p>
+                <div class="detail-list">
+                    <span>ISO 9000</span>
+                    <span>Quality Systems</span>
+                    <span>Regulatory Compliance</span>
+                    <span>Automated Verification</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="background" class="background-section">
+        <div class="section-label">Background</div>
+        <h2 class="section-title">30 years on both sides of the problem</h2>
+
+        <p>Most AI companies are looking for problems to solve with their technology. We started with the problems — manual inventory counts, compliance documentation that nobody can keep up with, quality systems that exist on paper but break down in practice — and built AI to fix them.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="contact" class="contact-section">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's talk</h2>
+        <p>If you're running a manufacturing operation and thinking about where AI fits, reach out.</p>
+        <a href="/cdn-cgi/l/email-protection#2b4959424a456b4f4e45485c44595f4305484446" class="contact-email"><span class="__cf_email__" data-cfemail="5634243f37381632333835213924223e7835393b">[email&#160;protected]</span></a>
+    </section>
+
+    <footer>
+        &copy; 2025 Dencworth LLC &middot
