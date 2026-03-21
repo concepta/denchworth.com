@@ -17,6 +17,8 @@
             --text-secondary: #8A93A3;
             --accent: #D4A03C;
             --accent-dim: rgba(212, 160, 60, 0.12);
+            --accent-green: #7ee8a2;
+            --accent-green-dim: rgba(126, 232, 162, 0.10);
             --mono: 'JetBrains Mono', monospace;
             --sans: 'DM Sans', -apple-system, sans-serif;
         }
@@ -150,10 +152,15 @@
             border-radius: 12px;
             padding: 2.25rem;
             transition: border-color 0.2s;
+            margin-bottom: 1.5rem;
         }
 
         .product-card:hover {
             border-color: var(--accent);
+        }
+
+        .product-card.oss:hover {
+            border-color: var(--accent-green);
         }
 
         .product-card h3 {
@@ -170,6 +177,10 @@
             margin-bottom: 1.5rem;
         }
 
+        .product-card p:last-of-type {
+            margin-bottom: 1.5rem;
+        }
+
         .product-link {
             display: inline-block;
             color: var(--accent);
@@ -181,6 +192,27 @@
 
         .product-link:hover {
             opacity: 0.8;
+        }
+
+        .product-link.green {
+            color: var(--accent-green);
+        }
+
+        .oss-badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent-green);
+            background: var(--accent-green-dim);
+            border: 1px solid rgba(126, 232, 162, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-left: 0.6rem;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
         }
 
         .detail-list {
@@ -372,7 +404,7 @@
     <nav>
         <div class="logo">Denchworth</div>
         <ul class="nav-links">
-            <li><a href="#product">Product</a></li>
+            <li><a href="#product">Products</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -386,11 +418,11 @@
     <div class="divider"></div>
 
     <section id="product">
-        <div class="section-label">Product</div>
-        <h2 class="section-title">improvia</h2>
+        <div class="section-label">Products</div>
+        <h2 class="section-title">What we build</h2>
 
         <div class="product-card">
-            <h3>Compliance document management, powered by AI</h3>
+            <h3>improvia</h3>
             <p>improvia is a Git-backed document control system for regulated industries. It manages the full lifecycle of your controlled documents — drafting, review, approval — with an AI that reads your entire document library and finds gaps before auditors do.</p>
             <p>Upload a regulation, a customer contract, or a county letter. The AI maps every requirement to your documents and shows you exactly what's covered and what's missing. Then it offers to draft what you need.</p>
             <p>The traceability matrix that maintains itself.</p>
@@ -404,6 +436,14 @@
                 <span>ISO 13485</span>
             </div>
         </div>
+
+        <div class="product-card oss">
+            <h3>git4docs <span class="oss-badge">Open Source</span></h3>
+            <p>The open source foundation that improvia is built on. Git-backed document control for teams who want to self-host — version history, approval workflows, and a cryptographic audit trail, all built on Git.</p>
+            <p>If you like the idea of Git as your document control system, start here for free.</p>
+            <a href="https://git4docs.com" class="product-link green" target="_blank">Visit git4docs.com →</a>
+        </div>
+
     </section>
 
     <div class="divider"></div>
