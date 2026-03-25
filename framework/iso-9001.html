@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISO 9001 Document Control Software | improvia</title>
+  <meta name="description" content="Manage your ISO 9001 controlled documents with Git-backed version control, automated approval workflows, and AI-powered gap analysis." />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 48px;
+      border-bottom: 1px solid #21262d;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #e6edf3;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 26px;
+      height: 26px;
+      background: #2563eb;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      color: #8b949e;
+      list-style: none;
+    }
+    .nav-links a { color: #8b949e; text-decoration: none; }
+    .nav-links a:hover { color: #e6edf3; }
+    .nav-cta {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 48px 56px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: #8b949e;
+      margin-bottom: 28px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #3fb950;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.12;
+      margin-bottom: 20px;
+      color: #e6edf3;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 span { color: #2563eb; }
+    .hero p {
+      font-size: 17px;
+      color: #8b949e;
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost {
+      /* hidden until video is ready */
+      display: none;
+      background: transparent;
+      color: #8b949e;
+      border: 1px solid #30363d;
+      padding: 11px 24px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .cta-hint {
+      font-size: 12px;
+      color: #484f58;
+    }
+
+    /* Screenshot */
+    .screenshot-wrap {
+      margin: 0 48px;
+      border: 1px solid #21262d;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+    }
+    .screen-nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .screen-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+    }
+    .screen-logo-mark {
+      width: 20px;
+      height: 20px;
+      background: #2563eb;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: white;
+    }
+    .screen-navlinks {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #6b7280;
+      list-style: none;
+    }
+    .screen-navlinks .active {
+      color: #111827;
+      font-weight: 500;
+      background: #f3f4f6;
+      padding: 3px 10px;
+      border-radius: 5px;
+    }
+    .screen-body {
+      display: flex;
+      height: 380px;
+    }
+
+    /* Left panel */
+    .screen-left {
+      width: 190px;
+      border-right: 1px solid #e5e7eb;
+      background: #fff;
+      padding: 12px;
+      flex-shrink: 0;
+    }
+    .screen-left-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .screen-left-title { font-size: 11px; font-weight: 500; color: #374151; }
+    .screen-add { font-size: 10px; color: #2563eb; }
+    .doc-item {
+      padding: 7px 8px;
+      border-radius: 5px;
+      margin-bottom: 4px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+    .doc-name { font-size: 11px; color: #111827; font-weight: 500; }
+    .doc-badge {
+      display: inline-block;
+      font-size: 9px;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-top: 2px;
+    }
+
+    /* Center */
+    .screen-center { flex: 1; overflow: hidden; background: #fff; }
+    .screen-center-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .framework-select {
+      font-size: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      padding: 4px 10px;
+      color: #111827;
+      background: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+    }
+    .recalc-btn {
+      font-size: 10px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      margin-left: auto;
+    }
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      padding: 8px 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .stat { font-size: 11px; }
+    .covered { color: #16a34a; }
+    .partial { color: #d97706; }
+    .gap-text { color: #dc2626; }
+    table.matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+    table.matrix th {
+      text-align: left;
+      padding: 6px 12px;
+      background: #f9fafb;
+      color: #6b7280;
+      font-weight: 500;
+      font-size: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    table.matrix td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      color: #374151;
+      vertical-align: top;
+    }
+    table.matrix td:first-child { color: #6b7280; font-size: 9px; white-space: nowrap; }
+    .tag-gap { background: #fee2e2; color: #991b1b; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 500; }
+    .tag-covered { background: #dcfce7; color: #166534; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 500; }
+    .tag-partial { background: #fef3c7; color: #92400e; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 500; }
+    tr.gap-row { background: #fff8f8; }
+
+    /* Right panel */
+    .screen-right {
+      width: 210px;
+      border-left: 1px solid #e5e7eb;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .ask-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 11px;
+      font-weight: 500;
+      color: #374151;
+    }
+    .ask-messages { flex: 1; padding: 10px 12px; overflow: hidden; }
+    .bubble-user {
+      background: #eff6ff;
+      border-radius: 8px 8px 2px 8px;
+      padding: 7px 10px;
+      font-size: 10px;
+      color: #1e40af;
+      margin-bottom: 8px;
+      text-align: right;
+    }
+    .bubble-ai {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px 8px 8px 2px;
+      padding: 7px 10px;
+      font-size: 10px;
+      color: #374151;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .ask-input-wrap {
+      padding: 8px 12px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .ask-input {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-family: 'DM Sans', sans-serif;
+      color: #9ca3af;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">i</div>
+      improvia
+    </a>
+    <ul class="nav-links">
+      <li><a href="/frameworks">Frameworks</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/docs">Docs</a></li>
+    </ul>
+    <a href="/app/signup" class="nav-cta">Get Started Free</a>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      ISO 9001 · Quality Management
+    </div>
+    <h1>ISO 9001 document control.<br><span>Without the spreadsheet.</span></h1>
+    <p>See exactly which clauses your documents cover — and which ones they don't — in 60 seconds.</p>
+    <div class="cta-row">
+      <a href="/app/map/iso-9001" class="btn-primary">Run your gap analysis →</a>
+      <!-- Uncomment when video is ready:
+      <a href="https://youtube.com/..." class="btn-ghost">See how it works</a>
+      -->
+    </div>
+    <p class="cta-hint">Free · No credit card · ISO 9001:2015 and 2026</p>
+  </section>
+
+  <div class="screenshot-wrap">
+    <div class="screen-nav">
+      <div class="screen-logo">
+        <div class="screen-logo-mark">i</div>
+        improvia
+      </div>
+      <ul class="screen-navlinks">
+        <li>Inbox</li>
+        <li>Docs</li>
+        <li class="active">Map</li>
+      </ul>
+    </div>
+
+    <div class="screen-body">
+      <div class="screen-left">
+        <div class="screen-left-header">
+          <span class="screen-left-title">Documents</span>
+          <span class="screen-add">+ Add</span>
+        </div>
+        <div class="doc-item">
+          <div class="doc-name">Quality Manual</div>
+          <div class="doc-badge">Internal</div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-name">SOP-001 Design Control</div>
+          <div class="doc-badge">Procedure</div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-name">SOP-002 CAPA</div>
+          <div class="doc-badge">Procedure</div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-name">WI-004 Calibration</div>
+          <div class="doc-badge">Work Instruction</div>
+        </div>
+      </div>
+
+      <div class="screen-center">
+        <div class="screen-center-header">
+          <select class="framework-select">
+            <option>ISO 9001:2015</option>
+          </select>
+          <button class="recalc-btn">Recalculate</button>
+        </div>
+        <div class="stats-row">
+          <span class="stat covered">12 covered</span>
+          <span class="stat partial">8 partial</span>
+          <span class="stat gap-text">13 gaps</span>
+        </div>
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Clause</th>
+              <th>Requirement</th>
+              <th>Document</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4.1</td>
+              <td>Understanding the organization and its context</td>
+              <td>Quality Manual</td>
+              <td><span class="tag-covered">covered</span></td>
+            </tr>
+            <tr>
+              <td>6.1</td>
+              <td>Actions to address risks and opportunities</td>
+              <td>Quality Manual</td>
+              <td><span class="tag-partial">partial</span></td>
+            </tr>
+            <tr>
+              <td>7.1.5</td>
+              <td>Monitoring and measuring resources</td>
+              <td>WI-004 Calibration</td>
+              <td><span class="tag-covered">covered</span></td>
+            </tr>
+            <tr>
+              <td>8.3</td>
+              <td>Design and development of products</td>
+              <td>SOP-001</td>
+              <td><span class="tag-partial">partial</span></td>
+            </tr>
+            <tr class="gap-row">
+              <td>8.5.3</td>
+              <td>Property belonging to customers or external providers</td>
+              <td>—</td>
+              <td><span class="tag-gap">gap</span></td>
+            </tr>
+            <tr class="gap-row">
+              <td>9.1.2</td>
+              <td>Customer satisfaction measurement and monitoring</td>
+              <td>—</td>
+              <td><span class="tag-gap">gap</span></td>
+            </tr>
+            <tr class="gap-row">
+              <td>10.2</td>
+              <td>Nonconformity and corrective action</td>
+              <td>—</td>
+              <td><span class="tag-gap">gap</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="screen-right">
+        <div class="ask-header">Ask improvia</div>
+        <div class="ask-messages">
+          <div class="bubble-user">What do I need to close clause 10.2?</div>
+          <div class="bubble-ai">Clause 10.2 requires a documented procedure for nonconformity and corrective action. Your CAPA SOP covers detection but not root cause analysis or effectiveness review. I can draft the missing sections.</div>
+        </div>
+        <div class="ask-input-wrap">
+          <input class="ask-input" placeholder="Ask anything..." />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
