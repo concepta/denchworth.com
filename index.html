@@ -36,6 +36,9 @@
         body {
             font-family: var(--sans);
             background: var(--bg);
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(138, 147, 163, 0.07) 1px, transparent 0);
+            background-size: 28px 28px;
             color: var(--text);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
@@ -81,12 +84,26 @@
         }
 
         .hero {
-            padding: 10rem 2rem 5rem;
-            max-width: 720px;
-            min-height: 90vh;
+            padding: 9rem 2rem 4rem;
+            max-width: 960px;
+            margin: 0 auto;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(212, 160, 60, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .hero-label {
@@ -121,12 +138,14 @@
         .divider {
             height: 1px;
             background: var(--border);
-            margin: 0 2rem;
+            max-width: 960px;
+            margin: 0 auto;
         }
 
         section {
             padding: 5rem 2rem;
-            max-width: 720px;
+            max-width: 960px;
+            margin: 0 auto;
         }
 
         .section-label {
@@ -146,13 +165,28 @@
             line-height: 1.2;
         }
 
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .product-grid .product-card.oss {
+            grid-column: 1 / -1;
+        }
+
         .product-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2.25rem;
             transition: border-color 0.2s;
-            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card p {
+            flex-grow: 1;
         }
 
         .product-card:hover {
@@ -273,7 +307,8 @@
 
         .contact-section {
             padding: 4rem 2rem 5rem;
-            max-width: 720px;
+            max-width: 960px;
+            margin: 0 auto;
             text-align: center;
         }
 
@@ -355,6 +390,11 @@
                 font-size: 1.4rem;
             }
 
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
             .product-card {
                 padding: 1.5rem;
             }
@@ -411,8 +451,8 @@
 
     <div class="hero">
         <div class="hero-label">Denchworth LLC</div>
-        <h1>AI Compliance Systems</h1>
-        <p>Document control, requirements traceability, and gap analysis for quality, safety, and finance teams.</p>
+        <h1>Automated Compliance Systems</h1>
+        <p>Document control, requirements traceability, and AI gap analysis for quality, safety, and finance teams.</p>
     </div>
 
     <div class="divider"></div>
@@ -421,29 +461,31 @@
         <div class="section-label">Products</div>
         <h2 class="section-title">What we build</h2>
 
-        <div class="product-card oss">
-            <h3>git4docs <span class="oss-badge">Open Source</span></h3>
-            <p>Git-backed document control for teams who want to self-host — version history, approval workflows, and a cryptographic audit trail, all built on Git. The open source foundation our products are built on.</p>
-            <p>If you like the idea of Git as your document control system, start here for free.</p>
-            <a href="https://git4docs.com" class="product-link green" target="_blank">Visit git4docs.com →</a>
-        </div>
+        <div class="product-grid">
+            <div class="product-card oss">
+                <h3>git4docs <span class="oss-badge">Open Source</span></h3>
+                <p>Git-backed document control for teams who want to self-host — version history, approval workflows, and a cryptographic audit trail, all built on Git. The open source foundation our products are built on.</p>
+                <p>If you like the idea of Git as your document control system, start here for free.</p>
+                <a href="https://git4docs.com" class="product-link green" target="_blank">Visit git4docs.com →</a>
+            </div>
 
-        <div class="product-card">
-            <h3>radmap</h3>
-            <p>Maps your radiation safety requirements, finds compliance gaps, and drafts the fixes.</p>
-            <a href="https://radmap.app" class="product-link" target="_blank">Visit radmap.app →</a>
-        </div>
+            <div class="product-card">
+                <h3>radmap</h3>
+                <p>Maps your radiation safety requirements, finds compliance gaps, and drafts the fixes.</p>
+                <a href="https://radmap.app" class="product-link" target="_blank">Visit radmap.app →</a>
+            </div>
 
-        <div class="product-card">
-            <h3>auditport</h3>
-            <p>Maps your SOX and GAAP requirements, finds compliance gaps, and drafts the fixes.</p>
-            <a href="https://auditport.app" class="product-link" target="_blank">Visit auditport.app →</a>
-        </div>
+            <div class="product-card">
+                <h3>auditport</h3>
+                <p>Maps your SOX and GAAP requirements, finds compliance gaps, and drafts the fixes.</p>
+                <a href="https://auditport.app" class="product-link" target="_blank">Visit auditport.app →</a>
+            </div>
 
-        <div class="product-card">
-            <h3>policyport</h3>
-            <p>Maps your ISO 9001 requirements, finds compliance gaps, and drafts the fixes.</p>
-            <a href="https://policyport.app" class="product-link" target="_blank">Visit policyport.app →</a>
+            <div class="product-card">
+                <h3>policyport</h3>
+                <p>Maps your ISO 9001 requirements, finds compliance gaps, and drafts the fixes.</p>
+                <a href="https://policyport.app" class="product-link" target="_blank">Visit policyport.app →</a>
+            </div>
         </div>
 
     </section>
